@@ -1,0 +1,40 @@
+<%- include("../partials/header.ejs") %>
+<div class="container">
+    <h3><%= text %></h3>
+    <div class="row">
+        <% if(stories.length !== 0 ){%>
+        <% stories.forEach(story => { %>
+        <div class="col s12 m4">
+            <div class="card">
+                <div class="card-image">
+                    <% if(user){ %>
+                    <% if(user.id == story.userId) { %>
+                    <small class="right"><a href="/stories/edit-story-screen/<%= story.id %>"><i
+                                class="material-icons edit tooltipped" data-position="top"
+                                data-tooltip="Edit">create</i></a></small>
+                    <% } %>
+                    <% } %>
+                </div>
+                <div class="card-content center-align">
+                    <h5><%= story.title %>
+                    </h5>
+                    <p class="story-text truncate"><%= story.story %></p>
+                    <br>
+                    <div class="chip">
+                        <img src="<%= story.userId.image %>">
+                        <a href="#"><%= story.userId.firstName%></a>
+                    </div>
+                </div>
+                <div class="card-action center-align">
+                    <a class="btn grey" href="/stories/show-story/<%= story.id %>">Lees meer</a>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+        <% } else { %>
+        <p>No stories found</p>
+        <% } %>
+    </div>
+</div>
+
+<%- include("../partials/footer.ejs") %>

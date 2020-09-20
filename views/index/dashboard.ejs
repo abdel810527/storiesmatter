@@ -1,0 +1,55 @@
+<%- include("../partials/header.ejs") %>
+
+
+<div class="container">
+    <% if(msg) {%>
+    <span class="delete-message center-align"><%= message %></span>
+    <% } %>
+    <h3>Je verhalen</h3>
+    <% if(stories.length !== 0){%>
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Titel</th>
+                <th>Datum & Tijd</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% stories.forEach(story => {%>
+            <tr>
+                <td><a href="/stories/show-story/<%= story.id %>"><%= story.title %></a></td>
+                <td>
+                    <%= story.date%>
+                </td>
+                <td><%= story.status %></span></td>
+                <td>
+                    <a class="btn left-align" href="/stories/edit-story-screen/<%= story.id %>"><i
+                            class="material-icons">edit</i> Bewerk</a>
+                    <button data-target="<%= story.id %>" class="btn modal-trigger red"><i
+                            class="material-icons">delete</i>Verwijder</button>
+                    <div id="<%= story.id%>" class="modal">
+                        <div class="modal-content">
+                            <hr>
+                            <h5 class="center-align">Wil je <b><%= story.title %></b> verwijderen ?</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <form action="/stories/delete-story/<%= story.id %>" method="post">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button type="submit" class="modal-close waves-effect waves-green btn-flat">Ja</button>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <% } else { %>
+    <div>Je hebt momenteel geen verhalen</div>
+    <% } %>
+</div>
+
+
+<%- include("../partials/footer.ejs") %>

@@ -1,0 +1,59 @@
+<%- include("../partials/header.ejs")%>
+<div class="container">
+    <h3>Bewerk je verhaal</h3>
+    <div class="row">
+        <form action="/stories/post-edit-story/<%= story.id %>" method="post" class="col s12">
+            <div class="row">
+                <div class="input-field">
+                    <input type="text" name="title" value="<%= story.title %>">
+                    <label for="title"></label>
+                </div>
+            </div>
+
+            <div class="row">
+                <label>Status</label>
+                <select class="browser-default" name="status">
+                    <option value="" disabled>Kies je optie</option>
+                    <% if(story.status == "Gedeeld"){%>
+                    <option value="Gedeeld" selected>Gedeeld</option>
+                    <% } else { %>
+                    <option value="Gedeeld">Gedeeld</option>
+                    <% } %>
+
+                    <% if(story.status == "Persoonlijk"){%>
+                    <option value="Persoonlijk" selected>Persoonlijk</option>
+                    <% } else { %>
+                    <option value="Persoonlijk">Persoonlijk</option>
+                    <% } %>
+                </select>
+
+            </div>
+
+            <div class="row">
+                <p>
+                    <label>
+                        <% if(story.allowComments === true){%>
+                        <input type="checkbox" class="filled-in" name="allowComments" checked="checked" />
+                        <% } else {%>
+                        <input type="checkbox" class="filled-in" name="allowComments" />
+                        <% } %>
+                        <span>Laat comments toe</span>
+                    </label>
+                </p>
+            </div>
+
+            <div class="row">
+                <div class="input-field">
+                    <h5>Vertel je verhaal:</h5>
+                    <textarea name="story"><%= story.story%></textarea>
+                </div>
+            </div>
+
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="submit" value="Bewerk" class="btn">
+            <a href="/stories/cancel" class="btn grey annuleer">Annuleer</a>
+        </form>
+    </div>
+</div>
+
+<%- include("../partials/footer.ejs")%>

@@ -1,0 +1,77 @@
+<%- include("../partials/header.ejs")%>
+
+<div class="row">
+    <div class="container">
+        <div class="col s12 m8">
+            <h3><%= story.title %>
+                <%if(user){%>
+                <%if(user.id == story.userId) {%>
+                <small><a href="/stories/edit-story-screen/<%= story.id %>"><i class="material-icons edit tooltipped"
+                            data-position="top" data-tooltip="Edit">create</i></a></small>
+                <%}%>    
+                    <%}%>
+            </h3>
+
+            <div class="card story">
+                <div class="card-content">
+                    <span class="card-title"><%= story.date%> </span>
+                    <%= story.story %>
+                </div>
+            </div>
+
+            <%if(story.allowComments == true){%>
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Comments</span>
+                    <% if(user){%>
+                    <form method="post" action="/stories/post-comment/<%= story.id%>&<%= user.id%>">
+                        <div class="input-field">
+                            <textarea name="commentText" class="materialize-textarea"></textarea>
+                            <label>Voeg comment</label>
+                        </div>
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="submit" value="Verzend" class="btn">
+                    </form>
+                    <% } else { %>
+                    <p><a href="/auth/google">Log in</a> om een comment te kunnen achterlaten.</p>
+                    <% }%>
+                </div>
+            </div>
+            <%} else {%>
+            <h5>Geen comments toegelaten : (</h5>
+            <%}%>
+
+    <% if(story.comments.length !== 0){%>
+            <% story.comments.forEach(comment => {%>
+            <div class="card">
+                <div class="card-content">
+                    <h5><%= comment.commentText %></h5>
+                    <div class="chip">
+                        <img src="<%= comment.commentUserId.image%>">
+                        <a href="#">
+                            <%= comment.commentUserId.firstName%>
+                        </a>
+                    </div>
+                    <br>
+                    <small>Gepost: <%= comment.commentDate %></small>
+                </div>
+            </div>
+            <% }) %>
+            <% } %>
+
+        </div>
+        <div class="col s12 m4">
+            <div class="card center-align">
+                <div class="card-content">
+                    <span class="card-title"><%= storiesUser.firstName%> <%= storiesUser.lastName %></span>
+                    <img src="<%= storiesUser.image %>" heigth='50px' width="50px" class="circle responsive-img">
+                </div>
+                <div class="card-action">
+                    <a href="/stories/public/user/<%= storiesUser.id%>">Meer verhalen van
+                        <%= storiesUser.firstName %></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include("../partials/footer.ejs")%>

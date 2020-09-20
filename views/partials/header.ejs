@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan+2&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+
+
+    <title>Stories Matter</title>
+</head>
+
+<body>
+    <nav class="teal darken-4">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger show-on-large"><i
+                        class="material-icons">menu</i></a>
+                <% if(user){ %>
+                <ul class="right hide-on-small-only">
+                    <li><i class="material-icons left">person_outline</i> Welkom
+                        <%= user.firstName %></li>
+                    </li>
+                    <li><a href="/stories/add-story-screen"><i class="material-icons left">add</i> Voeg een verhaal
+                            toe</a>
+                    </li>
+                    <li><a href="/auth/logout"><i class="material-icons left">lock</i> Uitloggen</a></li>
+                </ul>
+                <% } else { %>
+                <ul class="right hide-on-small-only">
+                    <li><a href="/auth/google"><i class="material-icons left">send</i> Login met Google
+                        </a>
+                    </li>
+                    <li><a href="/stories/public"><i class="material-icons left">assignment_ind</i> Gedeelde
+                            verhalen</a></li>
+                    <li>
+                </ul>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="/stories/public"><i class="material-icons left">assignment_ind</i> Gedeelde verhalen</a></li>
+        <li>
+            <hr>
+        </li>
+        <% if(!user){ %>
+        <li><a href="/auth/google"><i class="material-icons left">send</i> Login met Google
+            </a>
+        </li>
+        <% } %>
+        <% if(user){ %>
+        <li><a href="/auth/dashboard"><i class="material-icons left">poll</i> Dashboard</a></li>
+        <li><a href="/stories/my-stories"><i class="material-icons left">record_voice_over</i> Mijn verhalen</a></li>
+        <li><a href="/stories/add-story-screen"><i class="material-icons left">add</i> Voeg een verhaal toe</a></li>
+        <li><a href="/auth/logout"><i class="material-icons left">lock</i> Uitloggen</a></li>
+        <% } %>
+    </ul>

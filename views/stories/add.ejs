@@ -1,0 +1,45 @@
+<%- include("../partials/header.ejs")%>
+<div class="container">
+    <h3>Voeg een verhaal toe</h3>
+    <div class="row">
+        <form action="/stories/post-add-story" method="post" class="col s12">
+            <div class="row">
+                <div class="input-field">
+                    <input type="text" name="title" required>
+                    <label for="title">Titel</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <label>Status</label>
+                <select class="browser-default" name="status" required>
+                    <option value="" disabled>Kies je optie</option>
+                    <option value="Gedeeld">Gedeeld</option>
+                    <option value="Persoonlijk">Persoonlijk</option>
+                </select>
+
+            </div>
+
+            <div class="row">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" name="allowComments" checked="checked" required />
+                        <span>Laat comments toe</span>
+                    </label>
+                </p>
+            </div>
+
+            <div class="row">
+                <div class="input-field">
+                    <h5>Vertel je verhaal:</h5>
+                    <textarea name="story" required></textarea>
+                </div>
+            </div>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="submit" value="Bewaar" class="btn">
+            <a href="/stories/cancel" class="btn grey annuleer">Annuleer</a>
+        </form>
+    </div>
+</div>
+
+<%- include("../partials/footer.ejs")%>
